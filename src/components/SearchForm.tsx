@@ -3,12 +3,21 @@ import { useEffect, useState } from "react";
 export default function SearchForm() {
   const [searchText, setSearchText] = useState("");
 
+  const [jobIems, setJobItems] = useState([]);
+
   useEffect(() => {
     if (!searchText) return;
 
-    fetch(
-      `https://bytegrad.com/course-assets/projects/rmtdev/api/data?search=${searchText}`
-    );
+    // Fetch data from the API
+    const fetchData = async () => {
+      const response = await fetch(
+        `https://bytegrad.com/course-assets/projects/rmtdev/api/data?search=${searchText}`
+      );
+      const data = await response.json();
+      setJobItems(data);
+    };
+
+    fetchData();
   }, [searchText]);
 
   return (

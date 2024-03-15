@@ -8,6 +8,8 @@ function App() {
   const [jobItems, setJobItems] = useState([]);
   const [searchText, setSearchText] = useState("");
 
+  console.log("jobItems", jobItems);
+
   useEffect(() => {
     if (!searchText) return;
 
@@ -17,7 +19,7 @@ function App() {
         `https://bytegrad.com/course-assets/projects/rmtdev/api/data?search=${searchText}`
       );
       const data = await response.json();
-      setJobItems(data);
+      setJobItems(data.jobItems);
     };
 
     fetchData();

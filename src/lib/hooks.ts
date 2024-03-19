@@ -28,3 +28,24 @@ export const useJobItems = (searchText: string) => {
 
   return [jobItemsSliced, isLoading] as const;
 };
+
+export const useActiveId = () => {
+  const [activeId, setActiveId] = useState<number | null>();
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const id = +window.location.hash.slice(1);
+      setActiveId(id);
+    };
+
+    handleHashChange();
+
+    window.addEventListener("hashchange", handleHashChange);
+
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, []);
+
+  return activeId;
+};

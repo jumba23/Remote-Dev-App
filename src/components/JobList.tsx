@@ -5,9 +5,8 @@ export function JobList({ jobItems, isLoading }) {
   return (
     <ul className="job-list">
       {isLoading && <Spinner />}
-      {jobItems.map((jobItem) => (
-        <JobListItem jobItem={jobItem} />
-      ))}
+      {!isLoading &&
+        jobItems.map((jobItem) => <JobListItem jobItem={jobItem} />)}
     </ul>
   );
 }

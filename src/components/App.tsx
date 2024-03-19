@@ -19,6 +19,8 @@ function App() {
   const [jobItems, isLoading] = useJobItems(searchText);
   const activeId = useActiveId();
 
+  console.log(activeId);
+
   return (
     <>
       <Background />

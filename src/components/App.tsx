@@ -6,7 +6,7 @@ import Header, { HeaderTop } from "./Header";
 import Logo from "./Logo";
 import BookmarksButton from "./BookmarksButton";
 import SearchForm from "./SearchForm";
-import Sidebar from "./Sidebar";
+import Sidebar, { SidebarTop } from "./Sidebar";
 import JobItemContent from "./JobItemContent";
 import ResultsCount from "./ResultsCount";
 import SortingControls from "./SortingControls";
@@ -49,10 +49,10 @@ function App() {
 
       <Container>
         <Sidebar>
-          <div className="sidebar__top">
+          <SidebarTop>
             <ResultsCount />
             <SortingControls />
-          </div>
+          </SidebarTop>
 
           <JobList jobItems={jobItems} />
           <PaginationControls />

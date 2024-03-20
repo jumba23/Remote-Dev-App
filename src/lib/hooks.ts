@@ -1,5 +1,44 @@
 import { useEffect, useState } from "react";
 import { JobItem } from "./types";
+import { BASE_API_URL } from "./constants";
+
+export const useActiveId = () => {
+  const [activeId, setActiveId] = useState<number | null>();
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const id = +window.location.hash.slice(1);
+      setActiveId(id);
+    };
+
+    handleHashChange();
+
+    window.addEventListener("hashchange", handleHashChange);
+
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, []);
+
+  return activeId;
+};
+
+export const useJobItem = (id: number | null | undefined) => {
+  const [jobItem, setJobItem] = useState(null);
+  useEffect(() => {
+    if (!id) return;
+
+    const fetchData = async () => {
+      const response = await fetch(`${BASE_API_URL}/${id}`);
+      const data = await response.json();
+      console.log("Active Job DATA - ", data.jobItem);
+      setJobItem(data.jobItem);
+    };
+    fetchData();
+  }, [id]);
+
+  return jobItem;
+};
 
 export const useJobItems = (searchText: string) => {
   const [jobItems, setJobItems] = useState<JobItem[]>([]);
@@ -27,25 +66,4 @@ export const useJobItems = (searchText: string) => {
   }, [searchText]);
 
   return [jobItemsSliced, isLoading] as const;
-};
-
-export const useActiveId = () => {
-  const [activeId, setActiveId] = useState<number | null>();
-
-  useEffect(() => {
-    const handleHashChange = () => {
-      const id = +window.location.hash.slice(1);
-      setActiveId(id);
-    };
-
-    handleHashChange();
-
-    window.addEventListener("hashchange", handleHashChange);
-
-    return () => {
-      window.removeEventListener("hashchange", handleHashChange);
-    };
-  }, []);
-
-  return activeId;
 };

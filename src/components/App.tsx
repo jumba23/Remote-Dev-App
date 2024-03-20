@@ -19,12 +19,20 @@ function App() {
   const [searchText, setSearchText] = useState("");
   const [jobItems, isLoading] = useJobItems(searchText);
   const activeId = useActiveId();
+  const [jobItem, setJobItem] = useState(null);
 
   console.log(activeId);
 
   useEffect(() => {
     if (!activeId) return;
-    fetch(`${BASE_API_URL}/${activeId}`);
+
+    const fetchData = async () => {
+      const response = await fetch(`${BASE_API_URL}/${activeId}`);
+      const data = await response.json();
+      console.log("Active Job DATA - ", data.jobItem);
+      setJobItem(data.jobItem);
+    };
+    fetchData();
   }, [activeId]);
 
   return (

@@ -13,6 +13,7 @@ import SortingControls from "./SortingControls";
 import JobList from "./JobList";
 import PaginationControls from "./PaginationControls";
 import { useActiveId, useJobItems } from "../lib/hooks";
+import { BASE_API_URL } from "../lib/constants";
 
 function App() {
   const [searchText, setSearchText] = useState("");
@@ -20,6 +21,11 @@ function App() {
   const activeId = useActiveId();
 
   console.log(activeId);
+
+  useEffect(() => {
+    if (!activeId) return;
+    fetch(`${BASE_API_URL}/${activeId}`);
+  }, [activeId]);
 
   return (
     <>

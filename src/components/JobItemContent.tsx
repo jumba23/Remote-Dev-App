@@ -1,7 +1,12 @@
+import { JobItem } from "../lib/types";
 import BookmarkIcon from "./BookmarkIcon";
 
-export default function JobItemContent() {
-  return <EmptyJobContent />;
+type JobItemContentProps = {
+  jobItem: JobItem | null;
+};
+
+export default function JobItemContent({ jobItem }: JobItemContentProps) {
+  if (!jobItem) return <EmptyJobContent />;
 
   return (
     <section className="job-details">

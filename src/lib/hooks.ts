@@ -48,6 +48,7 @@ export const useJobItems = (searchText: string) => {
   const [jobItems, setJobItems] = useState<JobItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const totalNumberOfResults = jobItems.length;
   const jobItemsSliced = jobItems.slice(0, 7);
 
   console.log("jobItems", jobItems);
@@ -69,5 +70,5 @@ export const useJobItems = (searchText: string) => {
     fetchData();
   }, [searchText]);
 
-  return [jobItemsSliced, isLoading] as const;
+  return [jobItemsSliced, isLoading, totalNumberOfResults] as const;
 };

@@ -64,29 +64,63 @@ export const useActiveId = () => {
 
 //====================================================================================================
 
+// export const useJobItems = (searchText: string) => {
+//   const [jobItems, setJobItems] = useState<JobItem[]>([]);
+//   const [isLoading, setIsLoading] = useState(false);
+
+//   console.log("jobItems", jobItems);
+
+//   useEffect(() => {
+//     if (!searchText) return;
+
+//     // Fetch data from the API
+//     const fetchData = async () => {
+//       setIsLoading(true);
+//       const response = await fetch(
+//         `https://bytegrad.com/course-assets/projects/rmtdev/api/data?search=${searchText}`
+//       );
+//       const data = await response.json();
+//       setIsLoading(false);
+//       setJobItems(data.jobItems);
+//     };
+
+//     fetchData();
+//   }, [searchText]);
+
+//   return { jobItems, isLoading } as const;
+// };
+
+type JobItemsApiResponse = {
+  public: boolean;
+  sorted: boolean;
+  jobItems: JobItem[];
+};
+
+const fetchJobItems = async (
+  searchText: string
+): Promise<JobItemsApiResponse> => {
+  const response = await fetch(`${BASE_API_URL}?search=${searchText}`);
+  const data = await response.json();
+  return data;
+};
+
 export const useJobItems = (searchText: string) => {
-  const [jobItems, setJobItems] = useState<JobItem[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const { data, isInitialLoading } = useQuery(
+    ["job-items", searchText],
+    () => fetchJobItems(searchText),
+    {
+      staleTime: 1000 * 60 * 60, // 1 hour
+      refetchOnWindowFocus: false,
+      retry: false,
+      enabled: Boolean(searchText),
+      onError: (error) => {
+        console.error("Error fetching job items", error);
+      },
+    }
+  );
 
-  console.log("jobItems", jobItems);
-
-  useEffect(() => {
-    if (!searchText) return;
-
-    // Fetch data from the API
-    const fetchData = async () => {
-      setIsLoading(true);
-      const response = await fetch(
-        `https://bytegrad.com/course-assets/projects/rmtdev/api/data?search=${searchText}`
-      );
-      const data = await response.json();
-      setIsLoading(false);
-      setJobItems(data.jobItems);
-    };
-
-    fetchData();
-  }, [searchText]);
-
+  const jobItems = data?.jobItems;
+  const isLoading = isInitialLoading;
   return { jobItems, isLoading } as const;
 };
 

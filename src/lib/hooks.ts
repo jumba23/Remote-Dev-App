@@ -119,9 +119,10 @@ export const useJobItems = (searchText: string) => {
     }
   );
 
-  const jobItems = data?.jobItems;
-  const isLoading = isInitialLoading;
-  return { jobItems, isLoading } as const;
+  return {
+    jobItems: data?.jobItems,
+    isLoading: isInitialLoading,
+  } as const;
 };
 
 //====================================================================================================

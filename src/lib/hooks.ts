@@ -62,9 +62,6 @@ export const useJobItems = (searchText: string) => {
   const [jobItems, setJobItems] = useState<JobItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const totalNumberOfResults = jobItems.length;
-  const jobItemsSliced = jobItems.slice(0, 7);
-
   console.log("jobItems", jobItems);
 
   useEffect(() => {
@@ -84,7 +81,7 @@ export const useJobItems = (searchText: string) => {
     fetchData();
   }, [searchText]);
 
-  return { jobItemsSliced, isLoading, totalNumberOfResults } as const;
+  return { jobItems, isLoading } as const;
 };
 
 // <T> is a generic type that can be any type. It's a placeholder for the type of the value that will be passed to the hook.

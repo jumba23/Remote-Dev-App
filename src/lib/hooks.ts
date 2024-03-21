@@ -11,8 +11,10 @@ type jobItemApiResponse = {
 const fetchJobItem = async (id: number): Promise<jobItemApiResponse> => {
   const response = await fetch(`${BASE_API_URL}/${id}`);
 
+  // 4xx or 5xx response
   if (!response.ok) {
-    throw new Error("Network response was not ok");
+    const errorData = await response.json();
+    throw new Error(errorData.description || "Failed to fetch job item");
   }
 
   const data = await response.json();
@@ -100,6 +102,13 @@ const fetchJobItems = async (
   searchText: string
 ): Promise<JobItemsApiResponse> => {
   const response = await fetch(`${BASE_API_URL}?search=${searchText}`);
+
+  // 4xx or 5xx response
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.description || "Failed to fetch job item");
+  }
+
   const data = await response.json();
   return data;
 };

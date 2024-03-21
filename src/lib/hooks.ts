@@ -10,6 +10,11 @@ type jobItemApiResponse = {
 
 const fetchJobItem = async (id: number): Promise<jobItemApiResponse> => {
   const response = await fetch(`${BASE_API_URL}/${id}`);
+
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+
   const data = await response.json();
   return data;
 };
@@ -23,7 +28,9 @@ export const useJobItem = (id: number | null | undefined) => {
       refetchOnWindowFocus: false,
       retry: false,
       enabled: Boolean(id),
-      onError: () => {},
+      onError: (error) => {
+        console.error("Error fetching job item", error);
+      },
     }
   );
 

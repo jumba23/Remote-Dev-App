@@ -19,6 +19,8 @@ const fetchJobItem = async (id: number): Promise<jobItemApiResponse> => {
   return data;
 };
 
+//====================================================================================================
+
 export const useJobItem = (id: number | null | undefined) => {
   const { data, isInitialLoading } = useQuery(
     ["jobItem", id],
@@ -36,6 +38,8 @@ export const useJobItem = (id: number | null | undefined) => {
 
   return { jobItem: data?.jobItem, isLoading: isInitialLoading } as const;
 };
+
+//====================================================================================================
 
 export const useActiveId = () => {
   const [activeId, setActiveId] = useState<number | null>();
@@ -57,6 +61,8 @@ export const useActiveId = () => {
 
   return activeId;
 };
+
+//====================================================================================================
 
 export const useJobItems = (searchText: string) => {
   const [jobItems, setJobItems] = useState<JobItem[]>([]);
@@ -84,6 +90,7 @@ export const useJobItems = (searchText: string) => {
   return { jobItems, isLoading } as const;
 };
 
+//====================================================================================================
 // <T> is a generic type that can be any type. It's a placeholder for the type of the value that will be passed to the hook.
 // value is the value that will be debounced/returned.
 export const useDebounce = <T>(value: T, delay: number): T => {

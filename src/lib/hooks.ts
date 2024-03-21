@@ -72,3 +72,21 @@ export const useJobItems = (searchText: string) => {
 
   return { jobItemsSliced, isLoading, totalNumberOfResults } as const;
 };
+
+// <T> is a generic type that can be any type. It's a placeholder for the type of the value that will be passed to the hook.
+// value is the value that will be debounced/returned.
+export const useDebounce = <T>(value: T, delay: number): T => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+};

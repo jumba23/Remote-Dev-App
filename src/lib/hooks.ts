@@ -15,7 +15,7 @@ const fetchJobItem = async (id: number): Promise<jobItemApiResponse> => {
 };
 
 export const useJobItem = (id: number | null | undefined) => {
-  const { data, isLoading } = useQuery(
+  const { data, isInitialLoading } = useQuery(
     ["jobItem", id],
     () => (id ? fetchJobItem(id) : null),
     {
@@ -27,7 +27,7 @@ export const useJobItem = (id: number | null | undefined) => {
     }
   );
 
-  return { jobItem: data?.jobItem, isLoading } as const;
+  return { jobItem: data?.jobItem, isLoading: isInitialLoading } as const;
 };
 
 export const useActiveId = () => {

@@ -24,6 +24,7 @@ function App() {
 
   // derived state / computed state
   const totalNumberOfResults = jobItems?.length || 0;
+  const totalNumberOfPages = Math.ceil(totalNumberOfResults / 7);
   const jobItemsSliced =
     jobItems?.slice(currentPage * 7 - 7, currentPage * 7) || [];
 
@@ -60,6 +61,7 @@ function App() {
           <PaginationControls
             onClick={handleChangePage}
             currentPage={currentPage}
+            totalNumberOfPages={totalNumberOfPages}
           />
         </Sidebar>
         <JobItemContent />

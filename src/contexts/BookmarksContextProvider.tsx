@@ -3,12 +3,9 @@ import { createContext, useEffect, useState } from "react";
 export const BookmarksContext = createContext(null);
 
 export const BookmarksContextProvider = ({ children }) => {
-  const bookmarkedIdsFromLocalStorage = JSON.parse(
-    localStorage.getItem("bookmarkedIds") || "[]"
-  );
-  const [bookmarkedIds, setBookmarkedIds] = useState<number[]>(
-    bookmarkedIdsFromLocalStorage
-  );
+  const [bookmarkedIds, setBookmarkedIds] = useState<number[]>(() => {
+    return JSON.parse(localStorage.getItem("bookmarkedIds") || "[]");
+  });
 
   console.log(bookmarkedIds);
 

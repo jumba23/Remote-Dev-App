@@ -19,3 +19,5 @@ export type JobItemExpanded = JobItem & {
   companyLogoURL: string;
   companyURL: string;
 };
+
+export type SortBy = "relevant" | "recent";

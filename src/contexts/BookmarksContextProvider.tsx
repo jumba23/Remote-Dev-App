@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 
-const BookmarksContext = createContext(null);
+export const BookmarksContext = createContext(null);
 
 const BookmarksContextProvider = ({ children }) => {
   const [bookmarkedIds, setBookmarkedIds] = useState<number[]>([]);

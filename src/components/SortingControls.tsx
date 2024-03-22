@@ -14,7 +14,7 @@ export default function SortingControls({
       <i className="fa-solid fa-arrow-down-short-wide"></i>
 
       <SortingButton
-        onClick={() => onClick("relevant")}
+        onClick={() => onClick("recent")}
         isActive={sortBy === "recent"}
       >
         Recent

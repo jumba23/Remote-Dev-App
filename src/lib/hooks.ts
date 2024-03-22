@@ -152,7 +152,10 @@ export const useDebounce = <T>(value: T, delay: number): T => {
 
 //====================================================================================================
 
-export const useLocalStorage = (key: string, initialValue) => {
+export const useLocalStorage = <T>(
+  key: string,
+  initialValue: T
+): [T, React.Dispatch<React.SetStateAction<T>>] => {
   const [value, setValue] = useState(() => {
     return JSON.parse(
       localStorage.getItem(key) || JSON.stringify(initialValue)

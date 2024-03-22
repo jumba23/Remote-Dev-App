@@ -28,7 +28,8 @@ function App() {
   // derived state / computed state
   const totalNumberOfResults = jobItems?.length || 0;
   const totalNumberOfPages = Math.ceil(totalNumberOfResults / RESULTS_PER_PAGE);
-  const jobItemsSorted = jobItems?.sort((a, b) => {
+
+  const jobItemsSorted = [...(jobItems || [])].sort((a, b) => {
     if (sortBy === "relevant") {
       return b.relevanceScore - a.relevanceScore;
     } else {
@@ -36,11 +37,10 @@ function App() {
     }
   });
 
-  const jobItemsSortedAndSliced =
-    jobItemsSorted?.slice(
-      currentPage * RESULTS_PER_PAGE - RESULTS_PER_PAGE,
-      currentPage * RESULTS_PER_PAGE
-    ) || [];
+  const jobItemsSortedAndSliced = jobItemsSorted?.slice(
+    currentPage * RESULTS_PER_PAGE - RESULTS_PER_PAGE,
+    currentPage * RESULTS_PER_PAGE
+  );
 
   // event handlers / actins
   const handleChangePage = (direction: PageDirection) => {

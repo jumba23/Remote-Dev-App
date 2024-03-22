@@ -7,7 +7,11 @@ type BookmarkIconProps = {
 };
 
 export default function BookmarkIcon({ id }: BookmarkIconProps) {
-  const { bookmarkedIds, toggleHandleBookmark } = useContext(BookmarksContext);
+  const context = useContext(BookmarksContext);
+  if (!context)
+    throw new Error("useBookmarks must be used within a BookmarksProvider");
+
+  const { bookmarkedIds, toggleHandleBookmark } = context;
 
   return (
     <button

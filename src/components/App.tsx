@@ -24,7 +24,8 @@ function App() {
 
   // derived state / computed state
   const totalNumberOfResults = jobItems?.length || 0;
-  const jobItemsSliced = jobItems?.slice(0, 7) || [];
+  const jobItemsSliced =
+    jobItems?.slice(currentPage * 7 - 7, currentPage * 7) || [];
 
   // event handlers / actins
   const handleChangePage = (direction: "next" | "previous") => {

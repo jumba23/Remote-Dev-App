@@ -154,7 +154,9 @@ export const useDebounce = <T>(value: T, delay: number): T => {
 
 export const useLocalStorage = (key: string, initialValue) => {
   const [value, setValue] = useState(() => {
-    return JSON.parse(localStorage.getItem(key) || String(initialValue));
+    return JSON.parse(
+      localStorage.getItem(key) || JSON.stringify(initialValue)
+    );
   });
 
   // Load bookmarkedIds from localStorage

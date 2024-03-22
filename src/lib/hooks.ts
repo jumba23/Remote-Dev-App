@@ -149,3 +149,19 @@ export const useDebounce = <T>(value: T, delay: number): T => {
 
   return debouncedValue;
 };
+
+//====================================================================================================
+
+export const useLocalStorage = (key: string, initialValue) => {
+  const [value, setValue] = useState(() => {
+    return JSON.parse(localStorage.getItem(key) || String(initialValue));
+  });
+
+  // Load bookmarkedIds from localStorage
+  useEffect(() => {
+    // set initial bookmarkedIds from localStorage
+    localStorage.setItem(key, JSON.stringify(value));
+  }, [value, key]);
+
+  return [value, setValue] as const;
+};

@@ -7,7 +7,10 @@ export default function BookmarksButton() {
 
   return (
     <section>
-      <button onClick={() => setIsOpen(!isOpen)} className="bookmarks-btn">
+      <button
+        onClick={() => setIsOpen((prev) => !prev)}
+        className="bookmarks-btn"
+      >
         Bookmarks <TriangleDownIcon />
       </button>
 

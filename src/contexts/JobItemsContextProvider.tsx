@@ -56,7 +56,7 @@ export default function JobItemsContextProvider({
   );
 
   // event handlers / actins
-
+  // useCallback is used to memoize the function so that it doesn't change on every render
   const handleChangePage = useCallback((direction: PageDirection) => {
     if (direction === "previous") {
       setCurrentPage((prev) => prev - 1);
@@ -71,6 +71,7 @@ export default function JobItemsContextProvider({
   }, []);
 
   // context value object
+  // useMemo is used to memoize the context value so that it doesn't change on every render
   const contextValue = useMemo(
     () => ({
       jobItems,

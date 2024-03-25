@@ -6,6 +6,7 @@ import { createPortal } from "react-dom";
 const BookmarksPopover = forwardRef<HTMLDivElement>(function (_, ref) {
   const { bookmarkedJobItems, isLoading } = useBookmarksContext();
 
+  // if there are no bookmarked jobs, don't render the popover
   return createPortal(
     <div ref={ref} className="bookmarks-popover">
       <JobList jobItems={bookmarkedJobItems} isLoading={isLoading} />

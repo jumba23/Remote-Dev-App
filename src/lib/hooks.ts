@@ -55,7 +55,9 @@ export const useJobItems = (ids: number[]) => {
 
   const jobItems = results
     .map((result) => result.data?.jobItem)
-    .filter((jobItem) => jobItem !== undefined);
+    // .filter((jobItem) => jobItem !== undefined);
+    // .filter((jobItem) => !!jobItem );
+    .filter((jobItem) => Boolean(jobItem)) as JobItemExpanded[];
 
   const isLoading = results.some((result) => result.isLoading);
 

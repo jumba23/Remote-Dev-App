@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { useJobItem, useLocalStorage } from "../lib/hooks";
+import { useJobItems, useLocalStorage } from "../lib/hooks";
 
 type BookmarksContext = {
   bookmarkedIds: number[];
@@ -18,7 +18,8 @@ export const BookmarksContextProvider = ({
     []
   );
 
-  const { jobItem: bookmarkedJobItems, isLoading } = useJobItem(bookmarkedIds);
+  const { jobItems: bookmarkedJobItems, isLoading } =
+    useJobItems(bookmarkedIds);
 
   console.log(bookmarkedIds);
 

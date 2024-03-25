@@ -1,14 +1,14 @@
 import { createContext } from "react";
 import { useActiveId } from "../lib/hooks";
 
-type ActiveIdContext = {
+type SearchTextContext = {
   activeId: number | null | undefined;
 };
 
-export const ActiveIdContext = createContext<ActiveIdContext | null>(null);
+export const SearchTextContext = createContext<SearchTextContext | null>(null);
 
 // activeId context provider
-export default function ActiveIdContextProvider({
+export default function SearchTextContextProvider({
   children,
 }: {
   children: React.ReactNode;
@@ -16,12 +16,12 @@ export default function ActiveIdContextProvider({
   const activeId = useActiveId();
 
   return (
-    <ActiveIdContext.Provider
+    <SearchTextContext.Provider
       value={{
         activeId,
       }}
     >
       {children}
-    </ActiveIdContext.Provider>
+    </SearchTextContext.Provider>
   );
 }
